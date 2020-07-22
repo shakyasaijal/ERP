@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin, UserManager)
+from django.contrib.auth.models import (
+    AbstractBaseUser, PermissionsMixin, UserManager)
 from django.contrib.auth.base_user import BaseUserManager
 from datetime import datetime
 import os
@@ -31,15 +32,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
 
     # Custom Fields
-    # department = models.ManyToManyField(Department, verbose_name="Employee Departments", blank=False)
+    department = models.ManyToManyField(
+        'officeStructure.Department', verbose_name="Employee Departments", blank=False)
     date_of_birth = models.DateField(auto_now_add=False, null=True, blank=True)
-    # branch = models.ManyToManyField(support_models.Branches, blank=False)
-    # city = models.ForeignKey(City, null=True, blank=True, on_delete=models.PROTECT)
-    phone = models.CharField(max_length=255, null=True, blank=True, unique=True)
+    branch = models.ManyToManyField('officeStructure.Branches', blank=True)
+    phone = models.CharField(max_length=255, null=True,
+                             blank=True, unique=True)
     address = models.CharField(max_length=255, null=True, blank=True)
-    pan_document = models.FileField(verbose_name="PAN Document",upload_to="employee/static/employee/pan/", null=True, blank=True)
-    picture = models.ImageField(upload_to=employee_image, null=True, blank=True)
-    staff_head = models.ForeignKey('self', on_delete=models.PROTECT, related_name="employee_staff_head", null=True, blank=True, help_text="If Ownership, then not required.")
+    pan_document = models.FileField(
+        verbose_name="PAN Document", upload_to="employee/static/employee/pan/", null=True, blank=True)
+    picture = models.ImageField(
+        upload_to=employee_image, null=True, blank=True)
+    staff_head = models.ForeignKey('self', on_delete=models.PROTECT, related_name="employee_staff_head",
+                                   null=True, blank=True, help_text="If Ownership, then not required.")
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', ]

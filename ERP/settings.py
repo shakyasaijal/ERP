@@ -25,7 +25,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'userManagement',
-    'activatedServices'
+    'activatedServices',
+    'hrm',
+    'officeStructure',
+    'system'
 ]
 
 AUTH_USER_MODEL = 'userManagement.User'
