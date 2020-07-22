@@ -1,6 +1,6 @@
 import subprocess
 
-apps_for_migration_folder = []
+apps_for_migration_folder = ['userManagement', 'activatedServices']
 
 for i in apps_for_migration_folder:
     subprocess.call(

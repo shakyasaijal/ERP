@@ -24,7 +24,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'userManagement',
+    'activatedServices'
 ]
+
+AUTH_USER_MODEL = 'userManagement.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,10 +65,14 @@ WSGI_APPLICATION = 'ERP.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': credentials["db_name"],
+        'USER': credentials["db_user"],
+        'PASSWORD': credentials["db_password"],
+        'PORT': credentials["db_port"]
     }
 }
+
 
 
 # Password validation
