@@ -1,0 +1,120 @@
+{% extends "system/v1/Partials/base.html" %} 
+{% load static %} 
+{% load addcss %}
+{% load addid %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'system/v1/bower_components/datepicker/bootstrap-datepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'system/v1/bower_components/select2/select2.min.css' %}">
+
+{% endblock css %} 
+
+{% block content %}
+<section class="content-header">
+  <h1>
+    Add Trainings
+  </h1>
+</section>
+<section class="content container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <form method="POST" role="form">
+                {% csrf_token %}
+              <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{ form.name.label }}</label>
+                            {{form.name|addcss:'form-control'}}
+                            {{form.name.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>{{ form.certification.label }}</label>
+                            {{form.certification|addcss:'form-control'}}
+                            {{form.certification.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>{{form.start_date.label}}</label>
+            
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                                </div>
+                                {{form.start_date|addcss:"form-control"}}
+                            </div>
+                            <div className="errors">{{form.start_date.errors}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{form.branch.label}}</label>
+                            {{form.branch|addcss:"form-control select2"}}
+                            {{form.branch.errors}}
+                            <div class="help_text">{{form.branch.help_text}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{form.branch_accepted.label}}</label>
+                            {{form.branch_accepted|addcss:"form-control select2"}}
+                            {{form.branch_accepted.errors}}
+                            <div class="help_text">{{form.branch_accepted.help_text}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{form.employees.label}}</label>
+                            {{form.employees|addcss:"form-control select2"}}
+                            {{form.employees.errors}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>{{form.description.label}}</label>
+                            {{form.description|addcss:"form-control ckeditor"|linebreaksbr}}
+                            {{form.description.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{form.completed.label}}</label>
+                            {{form.completed|addcss:"form-control"}}
+                            {{form.completed.errors}}
+                        </div>
+                    </div>
+                </div>
+              </div>
+              {% if 'change_training' in user_permissions or has_all_access %}
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              {% endif %}
+            </form>
+          </div>
+    </div>
+  </div>
+</section>
+{% endblock content %} 
+
+{% block js %}
+<script src="{% static 'system/v1/bower_components/datepicker/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'system/v1/bower_components/select2/select2.full.min.js' %}"></script>
+
+<script>
+    $('.select2').select2()
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+</script>
+{% endblock js %}

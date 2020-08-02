@@ -46,6 +46,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     staff_head = models.ForeignKey('self', on_delete=models.PROTECT, related_name="employee_staff_head",
                                    null=True, blank=True, help_text="If Ownership, then not required.")
 
+    designation = models.ForeignKey("officeStructure.Designations", null=True, blank=True, on_delete=models.PROTECT)
+
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', ]
 

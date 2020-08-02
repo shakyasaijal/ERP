@@ -24,12 +24,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'ckeditor_uploader',
+    'settingsPage',
     'userManagement',
     'activatedServices',
     'hrm',
     'officeStructure',
-    'system'
+    'system',
+
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
 
 AUTH_USER_MODEL = 'userManagement.User'
 
@@ -49,7 +56,7 @@ ROOT_URLCONF = 'ERP.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,7 +64,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'system.contextProcessor.context.context_processor'
             ],
+            'libraries':{
+                'addcss':  'hrm.templatetags.addcss',
+                'addid':  'hrm.templatetags.addid',
+            }
         },
     },
 ]
@@ -75,7 +87,6 @@ DATABASES = {
         'PORT': credentials["db_port"]
     }
 }
-
 
 
 # Password validation
@@ -109,3 +120,4 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+LOGIN_URL = '/login'

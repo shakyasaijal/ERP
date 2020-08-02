@@ -9,5 +9,10 @@ class UserAdmin(admin.ModelAdmin):
     list_per_page = 20
     list_select_related = True
 
+    def save_model(self, request, obj, form, change):
+        if 'password' in form.changed_data:
+            obj.set_password(request.POST['password'])
+        obj.save()
+
 
 admin.site.register(models.User, UserAdmin)

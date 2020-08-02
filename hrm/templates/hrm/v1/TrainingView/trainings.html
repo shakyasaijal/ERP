@@ -1,0 +1,82 @@
+{% extends "system/v1/Partials/base.html" %} 
+{% load static %} 
+
+{% block css %}
+<link
+  rel="stylesheet"
+  href="{% static 'system/v1/bower_components/dataTable/css/dataTables.bootstrap.min.css' %}"
+/>
+{% endblock css %} 
+
+{% block content %}
+<section class="content-header">
+  <h1>
+    Trainings
+  </h1>
+</section>
+<section class="content container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            {% if 'add_training' in user_permissions or has_all_access %}
+                <div class="box-header">
+                    <h3 class="box-title"> <a href="{% url 'add-trainings' %}" class="btn btn-block btn-success"><i class="fa fa-plus-square"> Add New </i></a> </h3>
+                </div>
+            {% endif %}
+            <!-- /.box-header -->
+            <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Training Name</th>
+                    <th>Certification</th>
+                    <th>Started From</th>
+                    {% if 'change_training' in user_permissions or has_all_access %}
+                        <th>Has Accepted?</th>
+                    {% endif %}
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for training in trainings %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ training.name }}</td>
+                            <td>{% if training.certification %} Yes {% else %} No {% endif %}</td>
+                            <td> {{ training.date }} </td>
+                            {% if 'change_training' in user_permissions or has_all_access %}
+                                <td>{% if training.accepted %} Yes {% else %} No {% endif %}</td>
+                            {% endif %}
+                            <td>
+                                {% if 'view_training' in user_permissions or 'change_training' in user_permissions or has_all_access %}
+                                    <a href="{% url 'edit-trainings' training.id %}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
+                                {% endif %}
+                                {% if 'delete_training' in user_permissions or has_all_access %}
+                                    <form method="POST" action="{% url 'delete-training' training.id %}" class="float-right">
+                                        {% csrf_token %}
+                                        <button type="submit" onClick='return confirm("Are you sure you want to delete {{training.name}}? ")' class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+  </div>
+</section>
+{% endblock content %} 
+
+{% block js %}
+<script src="{% static 'system/v1/bower_components/dataTable/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'system/v1/bower_components/dataTable/js/dataTables.bootstrap.min.js' %}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+  });
+</script>
+{% endblock js %}

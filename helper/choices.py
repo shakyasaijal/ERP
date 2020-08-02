@@ -1,12 +1,14 @@
 services = (
     ("HRM", "Human Resource Management"),
-    ("LMS", "Leave Management System"),
+    ("SM", "Sales Management System"),
+    ("A", "Accounting"),
+    ("EB", "Employee Book"),
     ("IMS", "Inventory Management System"),
     ("CRMS", "Customer Relationship Management System")
 )
 
 
 yes_no = (
-    (1, "Yes"),
-    (0, "No")
+    (True, "Yes"),
+    (False, "No")
 )

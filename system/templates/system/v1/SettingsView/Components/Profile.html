@@ -1,0 +1,28 @@
+{% extends 'system/v1/SettingsView/settings.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block settingsContent %}
+
+<div class="box box-default">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="noTopMargin">Profile</h3>
+            </div>
+            <div class="col-xs-12">
+                <form method="POST">
+                    {% csrf_token %}
+                  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock settingsContent %}
+
+{% block js %}
+
+{% endblock js %}

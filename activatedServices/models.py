@@ -18,3 +18,4 @@ class services_requested(models.Model):
 
     def get_service_name(self):
         return self.service
+        

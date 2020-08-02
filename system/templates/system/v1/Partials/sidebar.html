@@ -1,0 +1,60 @@
+{% load static %}
+<aside class="main-sidebar">
+    <section class="sidebar">
+      <div class="user-panel">
+        <div class="pull-left image">
+            {% if request.picture %}
+              <img src="{{request.picture}}" class="img-circle" alt="User Image">
+            {% else %}
+              <img src="{% static 'system/v1/images/no-img.png' %}" class="img-circle" alt="User Image">
+            {% endif %}
+        </div>
+        <div class="pull-left info">
+          <p>{{request.user.get_full_name}}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search {{current_branch}}">
+          <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+        </div>
+      </form>
+      <ul class="sidebar-menu" data-widget="tree">
+        {% for route in routes %}
+          {% for key, value in route.items %}
+            <li class="header capitalize">{{key}}</li>
+            {% for data in value %}
+              {% if data.group %}
+                <li class="treeview {% if data.active %} class='active'{% endif %}">
+                  <a href="#">
+                    <i class="{{data.icon}}"></i> <span class="capitalize">{{data.title}}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    {% for d in data.links %}
+                      <li><a href="{{d.url}}"><i class="{{d.icon}}"></i>{{ d.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li {% if data.active %}class="active"{% endif %}>
+                  <a href="{{data.url}}">
+                    <i class="{{data.icon}}"></i> <span class="capitalize">{{data.title}}</span>
+                    <span class="pull-right-container">
+                      <!-- <small class="label pull-right bg-green">new</small> -->
+                    </span>
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </section>
+  </aside>
