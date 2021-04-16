@@ -8,4 +8,4 @@ Pillow==7.0.0
 mysqlclient==1.4.6
 django-ckeditor==5.9.0
 requests==  2.23.0
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
